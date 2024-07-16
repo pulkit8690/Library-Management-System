@@ -103,6 +103,11 @@ public class Add_Books extends javax.swing.JFrame
         b2.setBackground(new java.awt.Color(255, 51, 51));
         b2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         b2.setText("CANCEL");
+        b2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b2ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Github\\Library-Management-System\\JavaApplication1\\1.png")); // NOI18N
         jLabel7.setText("jLabel7");
@@ -194,6 +199,11 @@ public class Add_Books extends javax.swing.JFrame
     private void t5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_t5ActionPerformed
+
+    private void b2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_b2ActionPerformed
 
     /**
      * @param args the command line arguments

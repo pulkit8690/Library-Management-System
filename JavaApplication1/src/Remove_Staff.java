@@ -114,7 +114,7 @@ public class Remove_Staff extends javax.swing.JFrame {
         catch(Exception e){
             JOptionPane.showMessageDialog(this,e.getMessage());
         }
-    //GEN-LAST:event_b1ActionPerformed
+                                      
     }//GEN-LAST:event_b1ActionPerformed
 
     private void b2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b2ActionPerformed
