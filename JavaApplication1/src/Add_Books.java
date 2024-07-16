@@ -90,15 +90,31 @@ public class Add_Books extends javax.swing.JFrame
         t1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         t1.setForeground(new java.awt.Color(204, 0, 51));
 
+        t2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        t2.setForeground(new java.awt.Color(204, 0, 51));
+
+        t5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        t5.setForeground(new java.awt.Color(204, 0, 51));
         t5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 t5ActionPerformed(evt);
             }
         });
 
+        t3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        t3.setForeground(new java.awt.Color(204, 0, 51));
+
+        t4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        t4.setForeground(new java.awt.Color(204, 0, 51));
+
         b1.setBackground(new java.awt.Color(0, 153, 153));
         b1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         b1.setText("ADD");
+        b1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b1ActionPerformed(evt);
+            }
+        });
 
         b2.setBackground(new java.awt.Color(255, 51, 51));
         b2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -204,6 +220,48 @@ public class Add_Books extends javax.swing.JFrame
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_b2ActionPerformed
+
+    private void b1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b1ActionPerformed
+        // TODO add your handling code here:
+        String url="jdbc:mysql://localhost/library";
+       String user="root";
+       String pwd= "Computer@123";
+       String query="insert into books values(?,?,?,?,?);";
+       String id=t1.getText();
+       String category=t2.getText();
+       String name=t3.getText();
+       String author=t4.getText();
+       int copies=Integer.parseInt(t5.getText());
+       String checkquery="update books set copies=copies+"+copies+" where name='"+name+"' and category='"+category+"' and author='"+author+"';";
+       try {
+            Connection conn= DriverManager.getConnection(url,user,pwd);
+            Statement stmnt=conn.createStatement();
+            int rows=stmnt.executeUpdate(checkquery);
+            if(rows>0)
+            {
+                JOptionPane.showMessageDialog(this,"One record added successfully");
+            }
+            else
+            {
+                PreparedStatement stm = conn.prepareCall(query);
+                stm.setString(1,id);
+                stm.setString(2,category);
+                stm.setString(3,name);
+                stm.setString(4,author);
+                stm.setInt(5,copies);
+                stm.execute();
+                JOptionPane.showMessageDialog(this,"One record added successfully");
+            }
+           t1.setText(null);
+           t2.setText(null);
+           t3.setText(null);
+           t4.setText(null);
+           t5.setText(null);
+       }
+       catch(Exception e)  {
+        JOptionPane.showMessageDialog(this, e);
+       }
+    }//GEN-LAST:event_b1ActionPerformed
 
     /**
      * @param args the command line arguments
