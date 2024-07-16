@@ -11,7 +11,7 @@ This project is a library management system developed using NetBeans IDE.
 
 2. **Books Available**: Displays a list of books currently available in the library.
 
-   ![Books Available](images/Books%20Available.png)
+   ![Books Available](images/Books%20Availble.png)
 
 
 3. **Staff Details**: Shows information about staff members.
