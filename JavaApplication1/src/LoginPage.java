@@ -9,10 +9,13 @@
  */
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
+//import java.sql.Statement;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
-
+import java.sql.PreparedStatement;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 public class LoginPage extends javax.swing.JFrame {
 
     /**
@@ -37,13 +40,13 @@ public class LoginPage extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        LoginBuuton = new javax.swing.JLabel();
+        UserName = new javax.swing.JLabel();
+        Password = new javax.swing.JLabel();
         user = new javax.swing.JTextField();
         password = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        LoginButton = new javax.swing.JButton();
+        BackButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1550, 1000));
@@ -103,16 +106,16 @@ public class LoginPage extends javax.swing.JFrame {
                 .addContainerGap(315, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("LOGIN");
+        LoginBuuton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        LoginBuuton.setForeground(new java.awt.Color(0, 102, 102));
+        LoginBuuton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LoginBuuton.setText("LOGIN");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("Username");
+        UserName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        UserName.setText("Username");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setText("Password");
+        Password.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Password.setText("Password");
 
         user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,23 +129,23 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 102));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Login");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        LoginButton.setBackground(new java.awt.Color(0, 102, 102));
+        LoginButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        LoginButton.setForeground(new java.awt.Color(255, 255, 255));
+        LoginButton.setText("Login");
+        LoginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                LoginButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(0, 102, 102));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("BACK");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        BackButton.setBackground(new java.awt.Color(0, 102, 102));
+        BackButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        BackButton.setForeground(new java.awt.Color(255, 255, 255));
+        BackButton.setText("BACK");
+        BackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                BackButtonActionPerformed(evt);
             }
         });
 
@@ -155,7 +158,7 @@ public class LoginPage extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(134, 134, 134)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(LoginBuuton, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(76, 76, 76)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,11 +167,11 @@ public class LoginPage extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(LoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(192, 192, 192)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(BackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(UserName, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap(572, Short.MAX_VALUE))
         );
@@ -176,19 +179,19 @@ public class LoginPage extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LoginBuuton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(UserName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
         );
@@ -211,50 +214,77 @@ public class LoginPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_userActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         // TODO add your handling code here:
-        String url="jdbc:mysql://localhost:3306/library?useSSL=false";
-       String mysqluser="root";
-       String mysqlpwd= "Computer@123";
-       String pswrd=new String(password.getPassword());
-       String username=user.getText();
-       String query=("select PASSWORD from admin where USER_ID ='"+username+"';");
-       try{
-           Connection conn= DriverManager.getConnection(url,mysqluser,mysqlpwd);
-           Statement stm=conn.createStatement();
-           ResultSet rs= stm.executeQuery(query);
-           if(rs.next())
-           {
-                String realpswrd=rs.getString("PASSWORD");
-                    
-                if(realpswrd.equals(pswrd))
-                 {
-                     
-                    Dashboard dsh=new Dashboard();
-                    dsh.setVisible(true);
-                    this.dispose();
-                 }
-                 else
-                 {
-                   JOptionPane.showMessageDialog(this,"username or password entered is wrong");  
-                 }
-           }
-           else
-               JOptionPane.showMessageDialog(this, "Wrong Username");
-              
-        }
-       catch(Exception e)
-       {   JOptionPane.showMessageDialog(this,e.getMessage());  }
-    }//GEN-LAST:event_jButton1ActionPerformed
+       String url = "jdbc:mysql://localhost:3306/library?useSSL=true";  // Ensure SSL is enabled
+    String mysqlUser = "root";
+    String mysqlPwd = "Computer@123";
+    String enteredPassword = new String(password.getPassword());
+    String username = user.getText();
+    
+    // Check for empty input
+    if (username.isEmpty() || enteredPassword.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Username or password cannot be empty");
+        return;
+    }
 
+    // Query with a PreparedStatement to prevent SQL Injection
+    String query = "SELECT PASSWORD FROM admin WHERE USER_ID = ?";
+    
+    try {
+        Connection conn = DriverManager.getConnection(url, mysqlUser, mysqlPwd);
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, username);
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        if (rs.next()) {
+            String storedHashedPassword = rs.getString("PASSWORD");
+            
+            // Hash the entered password and compare it with the stored hashed password
+            String hashedPassword = hashPassword(enteredPassword);
+            
+            if (storedHashedPassword.equals(enteredPassword)) { 
+    // Correct password
+    Dashboard dsh = new Dashboard();
+    dsh.setVisible(true);
+    this.dispose();
+} else {
+    // Incorrect password
+    JOptionPane.showMessageDialog(this, "Username or password entered is wrong");
+}
+        } else {
+            // No such username in the database
+            JOptionPane.showMessageDialog(this, "Wrong Username");
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
+    }
+    }//GEN-LAST:event_LoginButtonActionPerformed
+    private String hashPassword(String password) {
+    try {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hashedBytes = md.digest(password.getBytes());
+        
+        // Convert the byte array into a hexadecimal string
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashedBytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
+    } catch (NoSuchAlgorithmException e) {
+        throw new RuntimeException("Error hashing the password: " + e.getMessage());
+    }
+}
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_BackButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -307,11 +337,11 @@ public class LoginPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton BackButton;
+    private javax.swing.JButton LoginButton;
+    private javax.swing.JLabel LoginBuuton;
+    private javax.swing.JLabel Password;
+    private javax.swing.JLabel UserName;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
